@@ -213,35 +213,57 @@ function initHeroSlider() {
    ========================================================================== */
 function initCounterAnimation() {
   const counters = document.querySelectorAll('.counter');
+  const metricsContainer = document.querySelector('.hero-metrics');
   let started = false;
 
   function runCounters() {
+    if (started) return;
+    started = true;
+
     counters.forEach(counter => {
-      const target = +counter.getAttribute('data-target');
+      const target = +counter.getAttribute('data-target') || 0;
       let count = 0;
-      const step = Math.ceil(target / 45);
+      counter.textContent = '0';
+      const duration = 1200; // Total 1.2 seconds animation
+      const steps = 35;
+      const stepValue = Math.max(1, Math.ceil(target / steps));
+      const interval = Math.floor(duration / steps);
+
       const timer = setInterval(() => {
-        count += step;
+        count += stepValue;
         if (count >= target) {
           counter.textContent = target;
           clearInterval(timer);
         } else {
           counter.textContent = count;
         }
-      }, 35);
+      }, interval);
     });
   }
 
-  // Trigger counters when scrolled into view
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && !started) {
-      started = true;
-      runCounters();
-    }
-  }, { threshold: 0.5 });
+  // Trigger counters when scrolled into view or immediately on mobile
+  if ('IntersectionObserver' in window && metricsContainer) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !started) {
+        runCounters();
+        observer.disconnect();
+      }
+    }, {
+      threshold: 0.1, // Trigger as soon as 10% of the metrics are visible
+      rootMargin: '50px 0px' // Pre-trigger slightly before scrolling into view
+    });
 
-  const heroSection = document.querySelector('.hero-section');
-  if (heroSection) observer.observe(heroSection);
+    observer.observe(metricsContainer);
+
+    // Guaranteed fallback: If observer hasn't fired within 1.2s, animate anyway
+    setTimeout(() => {
+      if (!started) {
+        runCounters();
+      }
+    }, 1200);
+  } else {
+    runCounters();
+  }
 }
 
 /* ==========================================================================
