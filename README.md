@@ -1,6 +1,6 @@
-# SMART TECH INTERIOR AND EXTERIOR SOLUTION 🏢✨
+# SMART TECH INTERIOR AND EXTERIOR SOLUTION 🏡🏢✨
 
-> **Premium Architectural Aluminium, Structural Glazing & Interior Solutions**  
+> **Turnkey Interior & Exterior Design for Homes, Offices & Shops**  
 > Based in Noorani, Palakkad, Kerala, India.
 
 ![Smart Tech Logo](assets/logo.png)
@@ -12,17 +12,17 @@
 
 ## 📖 About Smart Tech
 
-**Smart Tech Interior and Exterior Solution** is a premier architectural fabrication and interior solution specialist headquartered on **Vithuanni Road, Near Post Office, Noorani, Palakkad - 678004**. 
+**Smart Tech Interior and Exterior Solution** is a premier turnkey design and execution studio headquartered on **Vithuanni Road, Near Post Office, Noorani, Palakkad - 678004**. 
 
-Backed by an in-house fabrication facility and over a decade of hands-on expertise, Smart Tech delivers end-to-end solutions for commercial high-rises, retail showrooms, luxury villas, and modern residential homes across Palakkad, Coimbatore, and neighboring regions.
+Backed by an in-house fabrication and assembly facility and over a decade of hands-on mastery, Smart Tech delivers end-to-end bespoke solutions for **luxury homes & villas, corporate offices, and commercial retail shops/showrooms** across Palakkad, Coimbatore, and neighboring regions.
 
-### 🌟 Key Services
-- **Structural Glazing & Curtain Walls**: Four-sided silicone glazing, spider glass fittings, and acoustic facades with Saint-Gobain toughened safety glass.
-- **ACP Composite Sheet Cladding**: Weatherproof exterior building elevations using Aludecor / Alstone Grade-A composite panels with CNC routing.
-- **Aluminium & Toughened Glass Partitions**: Frameless 10mm/12mm glass office cubicles, conference room partitions, and acoustic dividers with Dorma/Ozone hardware.
-- **Modular Kitchens & Wardrobes**: 100% waterproof, termite-proof, and fire-retardant aluminium carcass modular kitchens with acrylic and lacquered glass finishes.
-- **UPVC & Aluminium Windows / Doors**: Heavy-duty acoustic sliding systems, openable casement windows, and bi-fold patio doors with EPDM weather seals.
-- **Acoustic False Ceilings**: Architectural aluminium baffle ceiling systems and Gyproc ceilings with integrated LED cove profile lighting.
+### 🌟 Core Specializations
+- **Home & Villa Interior Design**: Complete living rooms, master bedroom suites, dining lounges, custom entertainment units, wall paneling, and turnkey decor.
+- **Office & Corporate Fit-outs**: Modern executive cabins, acoustic glass & slimline aluminium partitions, cable-managed workstations, conference rooms, and reception backdrops.
+- **Shop & Retail Showroom Design**: High-impact storefronts, ACP exterior elevations, custom product display racks, cashier counters, and commercial spotlighting.
+- **Modular Kitchens & Custom Wardrobes**: 100% waterproof, termite-proof, and fire-retardant cabinetry with acrylic, PU, and lacquered glass finishes featuring Hettich/Hafele hardware.
+- **Exterior Facades & ACP Elevations**: Weatherproof commercial and residential building facades using Aludecor / Alstone Grade-A composite sheets and structural spider glazing.
+- **False Ceilings & Lighting**: Architectural linear acoustic baffles, Gyproc false ceilings, and ambient LED cove lighting integrations.
 
 ---
 

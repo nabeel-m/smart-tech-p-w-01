@@ -324,7 +324,7 @@ function initCostCalculator() {
     const serviceName = selectedOption.text.split('(')[0].trim();
     const gradeName = gradeSelect.options[gradeSelect.selectedIndex].text.split('(')[0].trim();
     const waText = encodeURIComponent(
-      `Hello Smart Tech Palakkad,\nI used your Cost Estimator on your website:\n- Work: ${serviceName}\n- Grade: ${gradeName}\n- Scope/Area: ${currentArea} ${unitDisplay.textContent}\n- Estimated Cost: ₹${minTotal.toLocaleString('en-IN')} – ₹${maxTotal.toLocaleString('en-IN')}\n\nPlease let me know when you can visit my site for laser measurement.`
+      `Hello Smart Tech Palakkad,\nI used your Cost Estimator on your website:\n- Project Type: ${serviceName}\n- Specification: ${gradeName}\n- Estimated Scope: ${currentArea} ${unitDisplay.textContent}\n- Estimated Price: ₹${minTotal.toLocaleString('en-IN')} – ₹${maxTotal.toLocaleString('en-IN')}\n\nPlease let me know when your team can visit my site for a survey & interior/exterior design consultation.`
     );
     whatsappQuoteBtn.onclick = () => {
       window.open(`https://wa.me/919447722144?text=${waText}`, '_blank');
