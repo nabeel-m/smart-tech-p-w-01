@@ -6,7 +6,8 @@
 ![Smart Tech Logo](assets/logo.png)
 
 [![Justdial Rating](https://img.shields.io/badge/Justdial_Rating-5.0_%E2%98%85-gold?style=for-the-badge&logo=google-maps)](https://www.justdial.com/Palakkad/Smart-Tech-Near-to-Post-Office-Noorani/9999PX491-X491-140214112214-N5G4_BZDET)
-[![License](https://img.shields.io/badge/License-Proprietary-blue?style=for-the-badge)](#)
+[![Live Website](https://img.shields.io/badge/Live_Site-smarttech--palakkad.vercel.app-000000?style=for-the-badge&logo=vercel)](https://smarttech-palakkad.vercel.app)
+[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Active-22c55e?style=for-the-badge&logo=github)](https://nabeel-m.github.io/smart-tech-p-w-01/)
 
 ---
 
