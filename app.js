@@ -387,7 +387,7 @@ function initCostCalculator() {
       `Hello Smart Tech Palakkad,\nI used your Cost Estimator on your website:\n- Project Type: ${serviceName}\n- Specification: ${gradeName}\n- Estimated Scope: ${currentArea} ${unitDisplay.textContent}\n- Estimated Price: ₹${minTotal.toLocaleString('en-IN')} – ₹${maxTotal.toLocaleString('en-IN')}\n\nPlease let me know when your team can visit my site for a survey & interior/exterior design consultation.`
     );
     whatsappQuoteBtn.onclick = () => {
-      window.open(`https://wa.me/919447722144?text=${waText}`, '_blank');
+      window.open(`https://wa.me/919995984554?text=${waText}`, '_blank');
     };
   }
 
@@ -418,7 +418,7 @@ function initLightbox() {
     descEl.textContent = desc;
 
     const msg = encodeURIComponent(`Hi Smart Tech Palakkad, I am interested in a project similar to: "${title}" in ${loc}.`);
-    waLink.href = `https://wa.me/919447722144?text=${msg}`;
+    waLink.href = `https://wa.me/919995984554?text=${msg}`;
 
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
@@ -466,7 +466,7 @@ window.handleContactSubmit = function(e) {
     const waMsg = encodeURIComponent(
       `Hello Smart Tech,\nMy Name: ${name}\nPhone: ${phone}\nRequirement: ${service}\nSite Location: ${location || 'Palakkad'}\nNotes: ${message || 'Need quotation & site visit'}`
     );
-    window.open(`https://wa.me/919447722144?text=${waMsg}`, '_blank');
+    window.open(`https://wa.me/919995984554?text=${waMsg}`, '_blank');
   }
 
   document.getElementById('contactForm').reset();

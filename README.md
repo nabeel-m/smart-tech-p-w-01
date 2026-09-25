@@ -30,8 +30,8 @@ Backed by an in-house fabrication and assembly facility and over a decade of han
 
 - **Address**: Vithuanni Road, Near to Post Office, Noorani, Palakkad - 678004, Kerala, India
 - **Operating Hours**: Monday to Saturday: 10:00 AM – 6:00 PM (Sunday: Closed)
-- **Direct Hotlines**: [+91 94477 22144](tel:+919447722144) / [+91 98461 40214](tel:+919846140214)
-- **WhatsApp**: [+91 94477 22144](https://wa.me/919447722144)
+- **Direct Hotlines**: [+91 99959 84554](tel:+919995984554) / [+91 89218 89770](tel:+918921889770)
+- **WhatsApp**: [+91 99959 84554](https://wa.me/919995984554)
 - **Directory**: [Smart Tech on Justdial](https://www.justdial.com/Palakkad/Smart-Tech-Near-to-Post-Office-Noorani/9999PX491-X491-140214112214-N5G4_BZDET) (Rated 5.0 ★)
 - **Accepted Payments**: UPI (GPay / PhonePe), Cash, Cheque / DD, Bank Wire (NEFT/RTGS)
 
