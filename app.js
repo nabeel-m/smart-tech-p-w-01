@@ -626,6 +626,14 @@ function initReviewSystem() {
   const ratingFeedbackBadge = document.getElementById('ratingFeedbackBadge');
   const statusBox = document.getElementById('reviewStatusBox');
 
+  // Justdial Auto-Sync & WhatsApp Handoff Modal
+  const jdSyncModal = document.getElementById('jdSyncModal');
+  const closeJdSyncBtn = document.getElementById('closeJdSyncBtn');
+  const doneJdSyncBtn = document.getElementById('doneJdSyncBtn');
+  const jdSyncOverlay = document.getElementById('jdSyncOverlay');
+  const jdSyncWhatsAppBtn = document.getElementById('jdSyncWhatsAppBtn');
+  const jdSyncDirectBtn = document.getElementById('jdSyncDirectBtn');
+
   // Filter pills
   const filterPills = document.querySelectorAll('.rf-pill');
 
@@ -650,14 +658,68 @@ function initReviewSystem() {
     }
   }
 
+  function openJdSyncModal(reviewData) {
+    if (!jdSyncModal) return;
+
+    // Fill preview
+    const starsEl = document.getElementById('jdSyncPreviewStars');
+    const textEl = document.getElementById('jdSyncPreviewText');
+    const authorEl = document.getElementById('jdSyncPreviewAuthor');
+
+    if (starsEl) starsEl.textContent = '★'.repeat(reviewData.rating) + '☆'.repeat(5 - reviewData.rating);
+    if (textEl) textEl.textContent = `"${reviewData.text}"`;
+    if (authorEl) authorEl.textContent = `${reviewData.author} • ${reviewData.service} (${reviewData.location})`;
+
+    // Prepare WhatsApp Message with Justdial link and review details
+    const cleanPhone = reviewData.contact ? reviewData.contact.replace(/[^0-9]/g, '') : '';
+    const jdUrl = SMART_TECH_CONFIG.justdialUrl;
+    const waText = encodeURIComponent(
+      `⭐ Smart Tech Client Review Verified!\n\n` +
+      `👤 Name: ${reviewData.author}\n` +
+      `📍 Location: ${reviewData.location}\n` +
+      `🔨 Work Done: ${reviewData.service}\n` +
+      `⭐ Rating: ${'★'.repeat(reviewData.rating)} (${reviewData.rating}/5)\n\n` +
+      `📝 Review:\n"${reviewData.text}"\n\n` +
+      `👉 Tap below to verify on Justdial in 10s (Review text is already copied!):\n${jdUrl}`
+    );
+
+    // If customer entered their phone, open directly or via wa.me link
+    const waUrl = cleanPhone && cleanPhone.length >= 10
+      ? `https://wa.me/91${cleanPhone.slice(-10)}?text=${waText}`
+      : `https://wa.me/?text=${waText}`;
+
+    if (jdSyncWhatsAppBtn) {
+      jdSyncWhatsAppBtn.href = waUrl;
+    }
+    if (jdSyncDirectBtn) {
+      jdSyncDirectBtn.href = jdUrl;
+    }
+
+    jdSyncModal.classList.add('active');
+    jdSyncModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeJdSyncModal() {
+    if (!jdSyncModal) return;
+    jdSyncModal.classList.remove('active');
+    jdSyncModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
   if (openBtn) openBtn.addEventListener('click', openModal);
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
   if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
   if (overlay) overlay.addEventListener('click', closeModal);
 
+  if (closeJdSyncBtn) closeJdSyncBtn.addEventListener('click', closeJdSyncModal);
+  if (doneJdSyncBtn) doneJdSyncBtn.addEventListener('click', closeJdSyncModal);
+  if (jdSyncOverlay) jdSyncOverlay.addEventListener('click', closeJdSyncModal);
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-      closeModal();
+    if (e.key === 'Escape') {
+      if (modal && modal.classList.contains('active')) closeModal();
+      if (jdSyncModal && jdSyncModal.classList.contains('active')) closeJdSyncModal();
     }
   });
 
@@ -722,6 +784,7 @@ function initReviewSystem() {
       const contact = document.getElementById('reviewContact').value.trim();
       const text = document.getElementById('reviewText').value.trim();
       const recommend = document.getElementById('reviewRecommend').checked;
+      const autoSyncChecked = document.getElementById('reviewAutoSync') ? document.getElementById('reviewAutoSync').checked : true;
       const rating = parseInt(ratingInput.value, 10) || 5;
 
       if (!author || !location || !text) {
@@ -731,6 +794,11 @@ function initReviewSystem() {
           statusBox.style.display = 'block';
         }
         return;
+      }
+
+      // Automatically copy review text to user's clipboard
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => {});
       }
 
       const reviewObj = {
@@ -763,12 +831,19 @@ function initReviewSystem() {
       updateReviewCounts();
 
       // Show confirmation toast
-      showToast(`Thank you, ${author}! Your ${rating}★ review for "${service}" has been published.`, 'success');
+      showToast(`✓ Thank you, ${author}! Review published & copied to clipboard.`, 'success');
 
       form.reset();
       currentSelectedRating = 5;
       setStarRating(5);
       closeModal();
+
+      // If AutoSync is active, trigger the WhatsApp & Justdial Handoff dialog
+      if (autoSyncChecked) {
+        setTimeout(() => {
+          openJdSyncModal(reviewObj);
+        }, 350);
+      }
     });
   }
 

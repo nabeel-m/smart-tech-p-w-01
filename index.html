@@ -1220,8 +1220,8 @@
             </select>
           </div>
           <div class="form-group-review">
-            <label for="reviewContact" class="review-form-label">Phone or Email (Optional / For verification)</label>
-            <input type="text" id="reviewContact" class="review-form-input" placeholder="e.g. 98470 XXXXX (Kept Private)">
+            <label for="reviewContact" class="review-form-label">WhatsApp Number <span class="opt-tag">For Justdial 1-Tap Sync</span></label>
+            <input type="tel" id="reviewContact" class="review-form-input" placeholder="e.g. 98470 12345 (to receive Justdial link)">
           </div>
         </div>
 
@@ -1236,6 +1236,11 @@
             <span class="custom-checkbox"></span>
             <span>I recommend Smart Tech Interior & Exterior Solution to other clients</span>
           </label>
+          <label class="review-checkbox-label auto-sync-label">
+            <input type="checkbox" id="reviewAutoSync" checked>
+            <span class="custom-checkbox"></span>
+            <span>Sync review to WhatsApp & Justdial with 1 tap after posting</span>
+          </label>
         </div>
 
         <div class="review-status-box" id="reviewStatusBox" style="display:none;"></div>
@@ -1248,6 +1253,48 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- Justdial Auto-Sync & WhatsApp Handoff Modal -->
+  <div class="review-modal jd-sync-modal" id="jdSyncModal" aria-hidden="true" role="dialog" aria-labelledby="jdSyncTitle">
+    <div class="review-modal-overlay" id="jdSyncOverlay"></div>
+    <div class="review-modal-dialog jd-sync-dialog">
+      <button class="review-modal-close" id="closeJdSyncBtn" aria-label="Close dialog">&times;</button>
+      
+      <div class="jd-sync-header text-center">
+        <div class="jd-sync-icon-circle">✓</div>
+        <h3 class="jd-sync-title" id="jdSyncTitle">Review Published on Smart Tech!</h3>
+        <p class="jd-sync-subtitle">Sync your review to <strong>Justdial</strong> to help us maintain Palakkad's top 5.0 rating.</p>
+      </div>
+
+      <div class="jd-sync-clipboard-banner">
+        <span class="clipboard-icon">📋</span>
+        <div>
+          <strong>Review text copied to your clipboard!</strong>
+          <span>Simply paste it on Justdial — no re-typing needed.</span>
+        </div>
+      </div>
+
+      <div class="jd-sync-preview-box">
+        <div class="jd-sync-preview-stars" id="jdSyncPreviewStars">★★★★★</div>
+        <p class="jd-sync-preview-text" id="jdSyncPreviewText"></p>
+        <span class="jd-sync-preview-author" id="jdSyncPreviewAuthor"></span>
+      </div>
+
+      <div class="jd-sync-actions">
+        <a id="jdSyncWhatsAppBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-lg" data-track-conversion="whatsapp_click">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+          <span>Send via WhatsApp with Justdial Link</span>
+        </a>
+
+        <a id="jdSyncDirectBtn" href="https://www.justdial.com/Palakkad/Smart-Tech-Near-to-Post-Office-Noorani/9999PX491-X491-140214112214-N5G4_BZDET" target="_blank" rel="noopener noreferrer" class="btn btn-justdial-lg" data-track-conversion="justdial_modal_click">
+          <span class="jd-pill-logo">JD</span>
+          <span>Paste Review Directly on Justdial (10s) ↗</span>
+        </a>
+
+        <button type="button" class="btn-done-later" id="doneJdSyncBtn">I'll do this later</button>
+      </div>
     </div>
   </div>
 
