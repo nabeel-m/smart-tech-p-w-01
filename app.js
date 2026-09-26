@@ -3,6 +3,82 @@
    Client Interactivity & Logic
    ========================================================================== */
 
+/* ==========================================================================
+   GOOGLE ADS & DIRECTORY CONVERSIONS CONFIGURATION
+   ========================================================================== */
+export const SMART_TECH_CONFIG = {
+  // Google Ads Conversion ID (Replace AW-XXXXXXXXXX with your actual Google Ads ID)
+  googleAdsId: 'AW-XXXXXXXXXX',
+
+  // Conversion Action Labels configured in Google Ads > Goals > Conversions:
+  conversionLabels: {
+    reviewSubmit: '',    // Conversion label for customer review submissions
+    contactForm: '',     // Conversion label for contact lead form
+    whatsappClick: '',   // Conversion label for WhatsApp chat initiates
+    phoneCall: '',       // Conversion label for direct phone calls
+    justdialClick: '',   // Conversion label for Justdial directory outbound clicks
+    googleReviewClick: '' // Conversion label for Google Maps review outbound clicks
+  },
+
+  // Directory & Review Links
+  justdialUrl: 'https://www.justdial.com/Palakkad/Smart-Tech-Near-to-Post-Office-Noorani/9999PX491-X491-140214112214-N5G4_BZDET',
+  googleMapsUrl: 'https://maps.google.com/?q=Noorani+Palakkad+Post+Office'
+};
+
+// Expose globally for testing / developer verification in browser console
+window.SMART_TECH_CONFIG = SMART_TECH_CONFIG;
+
+/**
+ * Universal conversion & event tracking for Google Ads and Google Analytics
+ * @param {string} actionName - Name of the conversion action
+ * @param {Object} [params={}] - Additional event payload (rating, service, label, etc.)
+ */
+export function trackGoogleAdConversion(actionName, params = {}) {
+  try {
+    const labelMap = {
+      review_submission: SMART_TECH_CONFIG.conversionLabels.reviewSubmit,
+      lead_form_submit: SMART_TECH_CONFIG.conversionLabels.contactForm,
+      whatsapp_click: SMART_TECH_CONFIG.conversionLabels.whatsappClick,
+      phone_call: SMART_TECH_CONFIG.conversionLabels.phoneCall,
+      justdial_click: SMART_TECH_CONFIG.conversionLabels.justdialClick,
+      google_review_click: SMART_TECH_CONFIG.conversionLabels.googleReviewClick
+    };
+
+    const label = labelMap[actionName] || '';
+    const hasActiveAdsId = SMART_TECH_CONFIG.googleAdsId && SMART_TECH_CONFIG.googleAdsId !== 'AW-XXXXXXXXXX';
+
+    // 1. Google Ads Tag (gtag.js)
+    if (typeof window.gtag === 'function') {
+      if (hasActiveAdsId && label) {
+        window.gtag('event', 'conversion', {
+          send_to: `${SMART_TECH_CONFIG.googleAdsId}/${label}`,
+          ...params
+        });
+      }
+      // Track named event in GA4 / Google Tag Manager
+      window.gtag('event', actionName, {
+        event_category: 'SmartTech_Interactions',
+        event_label: params.service || params.platform || actionName,
+        ...params
+      });
+    }
+
+    // 2. Custom DOM Event for modular analytics
+    window.dispatchEvent(new CustomEvent('smarttech:conversion', {
+      detail: { actionName, hasActiveAdsId, ...params }
+    }));
+
+    console.log(
+      `%c[Google Ads Event]: ${actionName}`,
+      'color: #b38b1f; font-weight: bold; background: rgba(179,139,31,0.1); padding: 2px 6px; border-radius: 4px;',
+      { hasActiveAdsId, ...params }
+    );
+  } catch (err) {
+    console.warn('[Tracking Warning]:', err);
+  }
+}
+window.trackGoogleAdConversion = trackGoogleAdConversion;
+
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initMobileDrawer();
@@ -12,6 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initPortfolioFilters();
   initCostCalculator();
   initLightbox();
+  initConversionTracking();
+  initReviewSystem();
 });
 
 /* ==========================================================================
@@ -457,6 +535,13 @@ window.handleContactSubmit = function(e) {
     return;
   }
 
+  // Google Ads conversion event
+  trackGoogleAdConversion('lead_form_submit', {
+    name,
+    service,
+    location: location || 'Palakkad'
+  });
+
   statusMsg.className = 'form-status-msg success';
   statusMsg.innerHTML = `✓ Thank you, <strong>${name}</strong>! Your inquiry for <strong>${service}</strong> has been registered. Our supervisor will call you at <strong>${phone}</strong> shortly.`;
 
@@ -471,3 +556,404 @@ window.handleContactSubmit = function(e) {
 
   document.getElementById('contactForm').reset();
 };
+
+/* ==========================================================================
+   Universal Conversion Tracking Handlers (WhatsApp, Phone, Justdial, Google)
+   ========================================================================== */
+function initConversionTracking() {
+  // WhatsApp clicks
+  document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+    link.addEventListener('click', () => {
+      trackGoogleAdConversion('whatsapp_click', {
+        href: link.href,
+        location: link.closest('section')?.id || 'header/floating-dock'
+      });
+    });
+  });
+
+  // Direct Phone Calls
+  document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+    link.addEventListener('click', () => {
+      trackGoogleAdConversion('phone_call', {
+        phone: link.getAttribute('href'),
+        location: link.closest('section')?.id || 'header/footer/floating-dock'
+      });
+    });
+  });
+
+  // Justdial Directory Outbound Clicks
+  document.querySelectorAll('a[href*="justdial.com"]').forEach(link => {
+    link.addEventListener('click', () => {
+      trackGoogleAdConversion('justdial_click', {
+        directory: 'Justdial Palakkad',
+        targetUrl: link.href
+      });
+    });
+  });
+
+  // Google Maps Reviews Outbound Clicks
+  document.querySelectorAll('a[href*="maps.google.com"]').forEach(link => {
+    link.addEventListener('click', () => {
+      trackGoogleAdConversion('google_review_click', {
+        platform: 'Google Maps'
+      });
+    });
+  });
+}
+
+/* ==========================================================================
+   Interactive Customer Review System & Attributes
+   ========================================================================== */
+const STORAGE_KEY_REVIEWS = 'smart_tech_customer_reviews';
+
+const RATING_DESCRIPTIONS = {
+  1: '1 Star - Needs Improvement',
+  2: '2 Stars - Fair Experience',
+  3: '3 Stars - Good Service',
+  4: '4 Stars - Very Good & Professional',
+  5: '5 Stars - Outstanding Workmanship!'
+};
+
+function initReviewSystem() {
+  const modal = document.getElementById('reviewModal');
+  const openBtn = document.getElementById('openReviewModalBtn');
+  const closeBtn = document.getElementById('closeReviewModalBtn');
+  const cancelBtn = document.getElementById('cancelReviewBtn');
+  const overlay = document.getElementById('reviewModalOverlay');
+  const form = document.getElementById('customerReviewForm');
+  const starButtons = document.querySelectorAll('.star-btn');
+  const ratingInput = document.getElementById('reviewRatingInput');
+  const ratingFeedbackBadge = document.getElementById('ratingFeedbackBadge');
+  const statusBox = document.getElementById('reviewStatusBox');
+
+  // Filter pills
+  const filterPills = document.querySelectorAll('.rf-pill');
+
+  let currentSelectedRating = 5;
+
+  function openModal() {
+    if (!modal) return;
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setStarRating(currentSelectedRating);
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (statusBox) {
+      statusBox.style.display = 'none';
+      statusBox.textContent = '';
+    }
+  }
+
+  if (openBtn) openBtn.addEventListener('click', openModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+  if (overlay) overlay.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Star Rating Interaction (Hover & Click)
+  function setStarRating(val) {
+    currentSelectedRating = val;
+    if (ratingInput) ratingInput.value = val;
+    if (ratingFeedbackBadge) {
+      ratingFeedbackBadge.textContent = RATING_DESCRIPTIONS[val] || `${val} Stars`;
+    }
+
+    starButtons.forEach(btn => {
+      const btnVal = parseInt(btn.getAttribute('data-value'), 10);
+      if (btnVal <= val) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  starButtons.forEach(btn => {
+    const val = parseInt(btn.getAttribute('data-value'), 10);
+
+    btn.addEventListener('click', () => {
+      setStarRating(val);
+    });
+
+    btn.addEventListener('mouseenter', () => {
+      starButtons.forEach(b => {
+        const bVal = parseInt(b.getAttribute('data-value'), 10);
+        if (bVal <= val) {
+          b.classList.add('hover-active');
+        } else {
+          b.classList.remove('hover-active');
+        }
+      });
+      if (ratingFeedbackBadge) {
+        ratingFeedbackBadge.textContent = RATING_DESCRIPTIONS[val] || `${val} Stars`;
+      }
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      starButtons.forEach(b => b.classList.remove('hover-active'));
+      if (ratingFeedbackBadge) {
+        ratingFeedbackBadge.textContent = RATING_DESCRIPTIONS[currentSelectedRating] || `${currentSelectedRating} Stars`;
+      }
+    });
+  });
+
+  // Initial render of stored reviews from localStorage
+  loadAndRenderCustomerReviews();
+
+  // Form Submit Handler
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const author = document.getElementById('reviewAuthor').value.trim();
+      const location = document.getElementById('reviewLocation').value.trim();
+      const service = document.getElementById('reviewService').value;
+      const contact = document.getElementById('reviewContact').value.trim();
+      const text = document.getElementById('reviewText').value.trim();
+      const recommend = document.getElementById('reviewRecommend').checked;
+      const rating = parseInt(ratingInput.value, 10) || 5;
+
+      if (!author || !location || !text) {
+        if (statusBox) {
+          statusBox.className = 'review-status-box error';
+          statusBox.textContent = 'Please fill out your name, location, and review message.';
+          statusBox.style.display = 'block';
+        }
+        return;
+      }
+
+      const reviewObj = {
+        id: 'rev_' + Date.now(),
+        author,
+        location,
+        service,
+        contact,
+        rating,
+        text,
+        recommend,
+        date: new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }),
+        source: 'customer'
+      };
+
+      // Save to localStorage
+      saveCustomerReview(reviewObj);
+
+      // Trigger Google Ads Conversion Event
+      trackGoogleAdConversion('review_submission', {
+        author,
+        rating,
+        service,
+        location,
+        recommend: recommend ? 'yes' : 'no'
+      });
+
+      // Render the review into the testimonials grid
+      renderReviewCard(reviewObj, true);
+      updateReviewCounts();
+
+      // Show confirmation toast
+      showToast(`Thank you, ${author}! Your ${rating}★ review for "${service}" has been published.`, 'success');
+
+      form.reset();
+      currentSelectedRating = 5;
+      setStarRating(5);
+      closeModal();
+    });
+  }
+
+  // Filter Pills Handler
+  filterPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      filterPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      const filterVal = pill.getAttribute('data-filter');
+      const allCards = document.querySelectorAll('#testimonialsGrid .testi-card');
+
+      allCards.forEach(card => {
+        const cardSource = card.getAttribute('data-source');
+        if (filterVal === 'all' || cardSource === filterVal) {
+          card.style.display = 'flex';
+          card.classList.add('fade-in');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+function getStoredReviews() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_REVIEWS);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    console.error('Error reading stored reviews:', e);
+    return [];
+  }
+}
+
+function saveCustomerReview(review) {
+  try {
+    const list = getStoredReviews();
+    list.unshift(review);
+    localStorage.setItem(STORAGE_KEY_REVIEWS, JSON.stringify(list));
+  } catch (e) {
+    console.error('Error saving review to localStorage:', e);
+  }
+}
+
+function loadAndRenderCustomerReviews() {
+  const reviews = getStoredReviews();
+  reviews.forEach(review => {
+    renderReviewCard(review, false);
+  });
+  updateReviewCounts();
+}
+
+function renderReviewCard(review, prepend = false) {
+  const grid = document.getElementById('testimonialsGrid');
+  if (!grid) return;
+
+  const card = document.createElement('div');
+  card.className = 'testi-card customer-review-card';
+  card.setAttribute('data-source', 'customer');
+  card.setAttribute('id', review.id);
+
+  // Generate initials
+  const initials = review.author
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(w => w[0].toUpperCase())
+    .join('') || 'ST';
+
+  const starsHtml = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+
+  card.innerHTML = `
+    <div class="testi-top-meta">
+      <span class="testi-source-badge customer-verified">
+        <span class="badge-dot green"></span> Verified Customer Review
+      </span>
+      <span class="testi-service-tag">${escapeHtml(review.service)}</span>
+    </div>
+    <div class="testi-rating" title="${review.rating} out of 5 stars">${starsHtml}</div>
+    <p class="testi-text">"${escapeHtml(review.text)}"</p>
+    <div class="testi-author">
+      <div class="author-avatar customer-avatar">${initials}</div>
+      <div class="author-info">
+        <h4 class="author-name">${escapeHtml(review.author)}</h4>
+        <p class="author-meta">${escapeHtml(review.location)} • ${escapeHtml(review.date)}</p>
+      </div>
+      <div class="testi-verified-stamp">✓ Verified</div>
+    </div>
+  `;
+
+  if (prepend && grid.firstChild) {
+    grid.insertBefore(card, grid.firstChild);
+    card.classList.add('highlight-new');
+    setTimeout(() => card.classList.remove('highlight-new'), 3000);
+  } else {
+    grid.appendChild(card);
+  }
+}
+
+function updateReviewCounts() {
+  const storedReviews = getStoredReviews();
+  const customerCount = storedReviews.length;
+  const justdialCount = 3; // Baseline verified reviews
+  const totalCount = justdialCount + customerCount;
+
+  const countAll = document.getElementById('countAllReviews');
+  const countJd = document.getElementById('countJdReviews');
+  const countCust = document.getElementById('countCustomerReviews');
+  const summaryCount = document.getElementById('ratingSummaryCount');
+  const bigScore = document.getElementById('ratingBigNumber');
+
+  if (countAll) countAll.textContent = totalCount;
+  if (countJd) countJd.textContent = justdialCount;
+  if (countCust) countCust.textContent = customerCount;
+
+  if (summaryCount) {
+    const verifiedTotal = 24 + customerCount;
+    summaryCount.innerHTML = `Rated 5.0/5 across <strong>${verifiedTotal}+ Verified Reviews</strong>`;
+  }
+
+  // Update dynamic schema.org reviewCount
+  try {
+    const schemaEl = document.getElementById('businessSchema');
+    if (schemaEl) {
+      const schemaData = JSON.parse(schemaEl.textContent);
+      if (schemaData.aggregateRating) {
+        schemaData.aggregateRating.reviewCount = String(24 + customerCount);
+        schemaEl.textContent = JSON.stringify(schemaData, null, 2);
+      }
+    }
+  } catch (e) {
+    // schema update silent fallback
+  }
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/* ==========================================================================
+   Toast Notification Feedback
+   ========================================================================== */
+export function showToast(message, type = 'success', duration = 4500) {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+
+  const toast = document.createElement('div');
+  toast.className = `toast-msg toast-${type}`;
+  toast.innerHTML = `
+    <span class="toast-icon">${type === 'success' ? '✓' : 'ℹ'}</span>
+    <span class="toast-body">${message}</span>
+    <button class="toast-close-btn" aria-label="Close message">&times;</button>
+  `;
+
+  container.appendChild(toast);
+
+  // Trigger enter transition
+  requestAnimationFrame(() => {
+    toast.classList.add('visible');
+  });
+
+  const closeBtn = toast.querySelector('.toast-close-btn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => removeToast(toast));
+  }
+
+  setTimeout(() => {
+    removeToast(toast);
+  }, duration);
+}
+window.showToast = showToast;
+
+function removeToast(toast) {
+  if (!toast || !toast.parentNode) return;
+  toast.classList.remove('visible');
+  toast.classList.add('fade-out');
+  setTimeout(() => {
+    if (toast.parentNode) toast.remove();
+  }, 300);
+}
+

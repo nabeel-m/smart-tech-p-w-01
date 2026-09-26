@@ -45,8 +45,35 @@ Backed by an in-house fabrication and assembly facility and over a decade of han
 3. **Interactive Cost Estimator**: Clients can select work type, material grade (Standard, Architectural, Elite), and area in square feet to get an instant cost range in INR (`₹`), with a **1-click Send to WhatsApp** button that pre-fills project specifications for on-site laser measurements.
 4. **Filterable Project Portfolio & Lightbox**: Interactive category filters (*Commercial Facades, Office Partitions, Modular Living, Glazing & Windows*) with full-screen lightbox preview.
 5. **Services Showcase**: Detailed technical specifications, material grades (Hindalco, Jindal, Saint-Gobain), and direct inquiry buttons.
-6. **Integrated Contact & Google Maps Hub**: Working inquiry form and interactive Google Maps iframe centered on Noorani Post Office, Palakkad.
-7. **Mobile Quick-Action Dock**: Persistent bottom navigation bar with one-tap Call, WhatsApp, and Estimate buttons for smartphone visitors.
+6. **Customer Reviews & Rating Attributes Hub**: Interactive reviews system where clients can rate work from 1 to 5 stars, review specific project attributes (Quality, On-Time Handover, Supervision, Transparency), and publish customer reviews locally with instant live display.
+7. **Justdial & Google Reviews Integration**: Direct one-click links to Smart Tech's official 5.0 Star rated Justdial profile and Google Maps reviews, with cross-directory promotion inside review dialogs.
+8. **Google Ads (gtag.js) Ready Conversion Tracking**: Comprehensive conversion tracking covering Review Submissions, Contact Form Leads, WhatsApp clicks, Phone calls, and Justdial outbound clicks with configurable Google Ads Conversion ID & Labels in `app.js`.
+9. **Integrated Contact & Google Maps Hub**: Working inquiry form and interactive Google Maps iframe centered on Noorani Post Office, Palakkad.
+10. **Mobile Quick-Action Dock**: Persistent bottom navigation bar with one-tap Call, WhatsApp, and Estimate buttons for smartphone visitors.
+
+---
+
+## 🎯 Google Ads & Conversion Tracking Setup
+
+Google Ads conversion tracking is pre-wired in `index.html` and configured centrally via `SMART_TECH_CONFIG` in [`app.js`](file:///c:/Users/nabee/OneDrive/Documents/Projects/SMART_TECH_Portfolio_app/app.js):
+
+```javascript
+export const SMART_TECH_CONFIG = {
+  // 1. Replace with your actual Google Ads ID (e.g. 'AW-1234567890')
+  googleAdsId: 'AW-XXXXXXXXXX',
+
+  // 2. Paste conversion labels generated in Google Ads (Goals > Conversions)
+  conversionLabels: {
+    reviewSubmit: '',    // Conversion label for customer review submissions
+    contactForm: '',     // Conversion label for contact lead form
+    whatsappClick: '',   // Conversion label for WhatsApp chat initiates
+    phoneCall: '',       // Conversion label for direct phone calls
+    justdialClick: '',   // Conversion label for Justdial outbound clicks
+    googleReviewClick: ''
+  }
+};
+```
+Whenever an action occurs (e.g., a customer submits a review or clicks WhatsApp), `trackGoogleAdConversion(...)` automatically fires the corresponding Google Ads and GA4 events.
 
 ---
 

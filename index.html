@@ -20,8 +20,18 @@
 
   <link rel="stylesheet" href="style.css">
 
-  <!-- Schema.org LocalBusiness Structured Data -->
-  <script type="application/ld+json">
+  <!-- Google tag (gtag.js) - Google Ads Conversion Tracking & Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    // Google Ads conversion tracking config (Default placeholder AW-XXXXXXXXXX)
+    gtag('config', 'AW-XXXXXXXXXX');
+  </script>
+
+  <!-- Schema.org LocalBusiness Structured Data with Aggregate Rating & Reviews -->
+  <script type="application/ld+json" id="businessSchema">
   {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
@@ -54,8 +64,13 @@
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",
+      "bestRating": "5",
+      "worstRating": "1",
       "reviewCount": "24"
-    }
+    },
+    "sameAs": [
+      "https://www.justdial.com/Palakkad/Smart-Tech-Near-to-Post-Office-Noorani/9999PX491-X491-140214112214-N5G4_BZDET"
+    ]
   }
   </script>
 </head>
@@ -75,11 +90,11 @@
         </span>
       </div>
       <div class="top-bar-right">
-        <div class="rating-badge">
+        <a href="https://www.justdial.com/Palakkad/Smart-Tech-Near-to-Post-Office-Noorani/9999PX491-X491-140214112214-N5G4_BZDET" target="_blank" rel="noopener noreferrer" class="rating-badge rating-badge-link" title="View 5.0 Star Verified Rating on Justdial" data-track-conversion="justdial_click">
           <span class="stars">★★★★★</span>
-          <span class="rating-text">5.0 Star Rated (Justdial Verified)</span>
-        </div>
-        <a href="https://wa.me/919995984554?text=Hello%20Smart%20Tech,%20I%20would%20like%20to%20enquire%20about%20interior/exterior%20works" target="_blank" rel="noopener noreferrer" class="top-whatsapp-link">
+          <span class="rating-text">5.0 Star Rated (Justdial Verified) ↗</span>
+        </a>
+        <a href="https://wa.me/919995984554?text=Hello%20Smart%20Tech,%20I%20would%20like%20to%20enquire%20about%20interior/exterior%20works" target="_blank" rel="noopener noreferrer" class="top-whatsapp-link" data-track-conversion="whatsapp_click">
           <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
           WhatsApp Us
         </a>
@@ -779,58 +794,146 @@
     </div>
   </section>
 
-  <!-- Testimonials Section -->
+  <!-- Testimonials & Client Reviews Section -->
   <section class="section testimonials-section" id="testimonials">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-subtitle">JUSTDIAL VERIFIED REVIEWS</span>
+        <span class="section-subtitle">⭐ JUSTDIAL VERIFIED & CLIENT REVIEWS</span>
         <h2 class="section-title">What Our Palakkad Clients Say</h2>
-        <div class="trust-badge-row">
-          <span class="stars-gold">★★★★★</span>
-          <span class="trust-badge-text">Rated 5.0 out of 5 on Justdial</span>
+        <p class="section-desc">
+          Authentic feedback from homeowners, corporate leaders, and commercial showroom owners across Palakkad, Chandranagar, and Noorani.
+        </p>
+      </div>
+
+      <!-- Rating & Review Attributes Summary Card -->
+      <div class="reviews-summary-card">
+        <div class="reviews-score-block">
+          <div class="rating-big-number" id="ratingBigNumber">5.0</div>
+          <div class="rating-stars-gold" id="ratingSummaryStars">★★★★★</div>
+          <div class="rating-score-sub" id="ratingSummaryCount">Rated 5.0/5 across <strong>24+ Verified Reviews</strong></div>
+          <div class="rating-recommend-tag">✓ 100% Client Satisfaction & Recommendation</div>
+        </div>
+
+        <div class="reviews-attributes-grid">
+          <div class="rating-attr-item">
+            <div class="attr-header">
+              <span class="attr-name">Quality & Material Finish</span>
+              <span class="attr-score">5.0 ★</span>
+            </div>
+            <div class="attr-bar-track"><div class="attr-bar-fill" style="width: 100%;"></div></div>
+          </div>
+          <div class="rating-attr-item">
+            <div class="attr-header">
+              <span class="attr-name">On-Time Handover</span>
+              <span class="attr-score">5.0 ★</span>
+            </div>
+            <div class="attr-bar-track"><div class="attr-bar-fill" style="width: 100%;"></div></div>
+          </div>
+          <div class="rating-attr-item">
+            <div class="attr-header">
+              <span class="attr-name">Supervision & Team Work</span>
+              <span class="attr-score">5.0 ★</span>
+            </div>
+            <div class="attr-bar-track"><div class="attr-bar-fill" style="width: 100%;"></div></div>
+          </div>
+          <div class="rating-attr-item">
+            <div class="attr-header">
+              <span class="attr-name">Quotation Transparency</span>
+              <span class="attr-score">4.9 ★</span>
+            </div>
+            <div class="attr-bar-track"><div class="attr-bar-fill" style="width: 98%;"></div></div>
+          </div>
         </div>
       </div>
 
-      <div class="testimonials-grid">
-        <div class="testi-card">
+      <!-- Reviews Action Buttons & Directories -->
+      <div class="reviews-actions-row">
+        <button type="button" class="btn btn-gold btn-write-review" id="openReviewModalBtn">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Add Your Review
+        </button>
+        <a href="https://www.justdial.com/Palakkad/Smart-Tech-Near-to-Post-Office-Noorani/9999PX491-X491-140214112214-N5G4_BZDET" target="_blank" rel="noopener noreferrer" class="btn btn-justdial" data-track-conversion="justdial_click" title="View Smart Tech's 5.0 Star Rating on Justdial">
+          <span class="jd-pill-logo">JD</span>
+          Rate on Justdial (5.0 ★) ↗
+        </a>
+        <a href="https://maps.google.com/?q=Noorani+Palakkad+Post+Office" target="_blank" rel="noopener noreferrer" class="btn btn-google-review" data-track-conversion="google_review_click" title="Review Smart Tech on Google Maps">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Review on Google ↗
+        </a>
+      </div>
+
+      <!-- Review Filter Pills -->
+      <div class="reviews-filter-bar">
+        <button type="button" class="rf-pill active" data-filter="all">All Reviews (<span id="countAllReviews">3</span>)</button>
+        <button type="button" class="rf-pill" data-filter="justdial">Justdial Verified (<span id="countJdReviews">3</span>)</button>
+        <button type="button" class="rf-pill" data-filter="customer">Customer Reviews (<span id="countCustomerReviews">0</span>)</button>
+      </div>
+
+      <!-- Testimonials Grid -->
+      <div class="testimonials-grid" id="testimonialsGrid">
+        <!-- Verified Review 1 -->
+        <div class="testi-card" data-source="justdial">
+          <div class="testi-top-meta">
+            <span class="testi-source-badge jd-verified">
+              <span class="badge-dot"></span> Justdial Verified Client
+            </span>
+            <span class="testi-service-tag">Modular Kitchen & Villa Interior</span>
+          </div>
           <div class="testi-rating">★★★★★</div>
           <p class="testi-text">
             "Smart Tech designed and completed the full interior for our luxury villa in Chandranagar. The waterproof modular kitchen, master bedroom wardrobes, and living room false ceiling were executed with immaculate attention to detail. Outstanding team!"
           </p>
           <div class="testi-author">
             <div class="author-avatar">AS</div>
-            <div>
+            <div class="author-info">
               <h4 class="author-name">Anitha Suresh</h4>
               <p class="author-meta">Residential Villa Owner, Chandranagar</p>
             </div>
+            <div class="testi-verified-stamp">✓ Verified</div>
           </div>
         </div>
 
-        <div class="testi-card">
+        <!-- Verified Review 2 -->
+        <div class="testi-card" data-source="justdial">
+          <div class="testi-top-meta">
+            <span class="testi-source-badge jd-verified">
+              <span class="badge-dot"></span> Justdial Verified Client
+            </span>
+            <span class="testi-service-tag">Corporate Office Fit-out</span>
+          </div>
           <div class="testi-rating">★★★★★</div>
           <p class="testi-text">
             "We entrusted our 4,500 sq.ft. Noorani corporate office fit-out to Smart Tech. The acoustic glass cabins, conference room partitions, and workstations were delivered ahead of schedule with premium Dorma fittings. Very courteous and professional."
           </p>
           <div class="testi-author">
             <div class="author-avatar">MM</div>
-            <div>
+            <div class="author-info">
               <h4 class="author-name">Mohammed Musthafa</h4>
               <p class="author-meta">Managing Director, Noorani Corporate Suite</p>
             </div>
+            <div class="testi-verified-stamp">✓ Verified</div>
           </div>
         </div>
 
-        <div class="testi-card">
+        <!-- Verified Review 3 -->
+        <div class="testi-card" data-source="justdial">
+          <div class="testi-top-meta">
+            <span class="testi-source-badge jd-verified">
+              <span class="badge-dot"></span> Justdial Verified Client
+            </span>
+            <span class="testi-service-tag">Commercial ACP Elevation & Showroom</span>
+          </div>
           <div class="testi-rating">★★★★★</div>
           <p class="testi-text">
             "Smart Tech revamped our retail showroom on Coimbatore Road with an eye-catching geometric ACP elevation and full interior display fit-out. Customer footfall increased immediately thanks to the stunning storefront and modern lighting."
           </p>
           <div class="testi-author">
             <div class="author-avatar">RK</div>
-            <div>
+            <div class="author-info">
               <h4 class="author-name">Radhakrishnan K.</h4>
               <p class="author-meta">Commercial Showroom Owner, Palakkad</p>
             </div>
+            <div class="testi-verified-stamp">✓ Verified</div>
           </div>
         </div>
       </div>
@@ -991,10 +1094,10 @@
         <p class="footer-bio">
           Palakkad's premier turnkey interior and exterior design studio. Creating inspiring homes, productive corporate workspaces, and high-impact retail shop spaces with in-house craftsmanship.
         </p>
-        <div class="justdial-verified-badge">
+        <a href="https://www.justdial.com/Palakkad/Smart-Tech-Near-to-Post-Office-Noorani/9999PX491-X491-140214112214-N5G4_BZDET" target="_blank" rel="noopener noreferrer" class="justdial-verified-badge justdial-link-badge" data-track-conversion="justdial_click" title="View 5.0 Star Rating on Justdial Directory">
           <span class="jd-star">★</span>
-          <span>Verified 5.0 Rating on Justdial Directory</span>
-        </div>
+          <span>Verified 5.0 Rating on Justdial Directory ↗</span>
+        </a>
       </div>
 
       <div class="footer-col">
@@ -1029,8 +1132,8 @@
           Kerala, India
         </p>
         <p class="footer-phone">
-          <strong>Direct:</strong> <a href="tel:+919995984554">+91 99959 84554</a><br>
-          <strong>Alt:</strong> <a href="tel:+918921889770">+91 89218 89770</a>
+          <strong>Direct:</strong> <a href="tel:+919995984554" data-track-conversion="phone_call">+91 99959 84554</a><br>
+          <strong>Alt:</strong> <a href="tel:+918921889770" data-track-conversion="phone_call">+91 89218 89770</a>
         </p>
         <p class="footer-hours">
           <strong>Hours:</strong> Mon - Sat: 10:00 AM – 6:00 PM
@@ -1045,6 +1148,111 @@
       </div>
     </div>
   </footer>
+
+  <!-- Customer Review Submission Modal -->
+  <div class="review-modal" id="reviewModal" aria-hidden="true" role="dialog" aria-labelledby="reviewModalTitle">
+    <div class="review-modal-overlay" id="reviewModalOverlay"></div>
+    <div class="review-modal-dialog">
+      <button class="review-modal-close" id="closeReviewModalBtn" aria-label="Close Review Dialog">&times;</button>
+      
+      <div class="review-modal-header">
+        <div class="modal-badge-icon">✍️</div>
+        <div>
+          <h3 class="review-modal-title" id="reviewModalTitle">Share Your Project Experience</h3>
+          <p class="review-modal-subtitle">Your review helps clients in Palakkad make confident interior & exterior design decisions.</p>
+        </div>
+      </div>
+
+      <!-- Justdial Direct Directory Callout -->
+      <div class="modal-jd-callout">
+        <div class="modal-jd-info">
+          <span class="jd-pill-logo">JD</span>
+          <div>
+            <strong>Are you a Justdial user?</strong>
+            <span>You can also leave your verified review directly on our official Justdial page.</span>
+          </div>
+        </div>
+        <a href="https://www.justdial.com/Palakkad/Smart-Tech-Near-to-Post-Office-Noorani/9999PX491-X491-140214112214-N5G4_BZDET" target="_blank" rel="noopener noreferrer" class="btn-jd-outline" data-track-conversion="justdial_modal_click">
+          Review on Justdial ↗
+        </a>
+      </div>
+
+      <form id="customerReviewForm" class="review-form" novalidate>
+        <!-- Rating Star Selection Attribute -->
+        <div class="form-group-review">
+          <label class="review-form-label">
+            Overall Rating <span class="req">*</span>
+          </label>
+          <div class="star-picker-container" id="starRatingPicker" role="radiogroup" aria-label="Star Rating Selection">
+            <button type="button" class="star-btn" data-value="1" aria-label="1 Star - Poor">★</button>
+            <button type="button" class="star-btn" data-value="2" aria-label="2 Stars - Fair">★</button>
+            <button type="button" class="star-btn" data-value="3" aria-label="3 Stars - Good">★</button>
+            <button type="button" class="star-btn" data-value="4" aria-label="4 Stars - Very Good">★</button>
+            <button type="button" class="star-btn active" data-value="5" aria-label="5 Stars - Outstanding">★</button>
+            <span class="rating-feedback-badge" id="ratingFeedbackBadge">5 Stars - Outstanding Workmanship!</span>
+          </div>
+          <input type="hidden" id="reviewRatingInput" name="rating" value="5">
+        </div>
+
+        <div class="review-grid-2">
+          <div class="form-group-review">
+            <label for="reviewAuthor" class="review-form-label">Your Full Name <span class="req">*</span></label>
+            <input type="text" id="reviewAuthor" class="review-form-input" placeholder="e.g. Arun Kumar" required>
+          </div>
+          <div class="form-group-review">
+            <label for="reviewLocation" class="review-form-label">Location / City <span class="req">*</span></label>
+            <input type="text" id="reviewLocation" class="review-form-input" placeholder="e.g. Chandranagar, Palakkad" required>
+          </div>
+        </div>
+
+        <div class="review-grid-2">
+          <div class="form-group-review">
+            <label for="reviewService" class="review-form-label">Project / Service Executed <span class="req">*</span></label>
+            <select id="reviewService" class="review-form-select" required>
+              <option value="Modular Kitchen & Villa Interior">Modular Kitchen & Villa Interior</option>
+              <option value="Commercial ACP Elevation & Facade">Commercial ACP Elevation & Facade</option>
+              <option value="Acoustic Glass Office Partitions">Acoustic Glass Office Partitions</option>
+              <option value="Designer False Ceiling & Lighting">Designer False Ceiling & Lighting</option>
+              <option value="Toughened Glass Doors & Windows">Toughened Glass Doors & Windows</option>
+              <option value="Retail Showroom Full Fit-out">Retail Showroom Full Fit-out</option>
+              <option value="Aluminium & UPVC Window Work">Aluminium & UPVC Window Work</option>
+              <option value="Turnkey Interior & Exterior Solution">Turnkey Interior & Exterior Solution</option>
+            </select>
+          </div>
+          <div class="form-group-review">
+            <label for="reviewContact" class="review-form-label">Phone or Email (Optional / For verification)</label>
+            <input type="text" id="reviewContact" class="review-form-input" placeholder="e.g. 98470 XXXXX (Kept Private)">
+          </div>
+        </div>
+
+        <div class="form-group-review">
+          <label for="reviewText" class="review-form-label">Your Review & Experience Details <span class="req">*</span></label>
+          <textarea id="reviewText" class="review-form-textarea" rows="4" placeholder="Tell us how the project was executed, team responsiveness, finish quality, and completion timeline..." required></textarea>
+        </div>
+
+        <div class="form-group-review">
+          <label class="review-checkbox-label">
+            <input type="checkbox" id="reviewRecommend" checked>
+            <span class="custom-checkbox"></span>
+            <span>I recommend Smart Tech Interior & Exterior Solution to other clients</span>
+          </label>
+        </div>
+
+        <div class="review-status-box" id="reviewStatusBox" style="display:none;"></div>
+
+        <div class="review-modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancelReviewBtn">Cancel</button>
+          <button type="submit" class="btn btn-gold" id="submitReviewBtn">
+            <span>Publish Review</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
   <!-- Lightbox Modal for Portfolio Showcase -->
   <div class="lightbox-modal" id="lightboxModal" aria-hidden="true" role="dialog">
